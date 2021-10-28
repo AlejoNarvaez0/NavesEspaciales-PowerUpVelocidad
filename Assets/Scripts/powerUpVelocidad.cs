@@ -20,7 +20,7 @@ public class powerUpVelocidad : MonoBehaviour
 		Debug.Log("estoy colisionando con - " + other.name);
 		if (other.tag == "Player")
 		{
-			movimientoPersonaje player = other.GetComponent<movimientoPersonaje>();
+			movimientoNave player = other.GetComponent<movimientoNave>();
 			if (player != null)
 			{
 				player.Power();

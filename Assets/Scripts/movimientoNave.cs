@@ -14,14 +14,19 @@ public class movimientoNave : MonoBehaviour
     public int vidasJugador;
 
     public GameObject disparoLaser;
-    
-    
+
+    [SerializeField]
+    private bool powerUpvelocidad = false;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        velocidadHorizontal = 5.0f;
-        velocidadVertical = 5.0f;
+        velocidadHorizontal = 2.0f;
+        velocidadVertical = 2.0f;
+
+        
 
     }
 
@@ -30,7 +35,8 @@ public class movimientoNave : MonoBehaviour
     {
         movimientoPersonaje();
         disparoPersonaje();
-        
+        aumentarVelocidad();
+
     }
 
 
@@ -40,7 +46,7 @@ public class movimientoNave : MonoBehaviour
         movimientoHorizontal = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * Time.deltaTime * velocidadHorizontal * movimientoHorizontal);
 
-        movimientoVertical = Input.GetAxis("Vertical"); 
+        movimientoVertical = Input.GetAxis("Vertical");
         transform.Translate(Vector3.up * Time.deltaTime * movimientoVertical * velocidadVertical);
 
         //Limitacion del eje x && y
@@ -73,11 +79,11 @@ public class movimientoNave : MonoBehaviour
         {
             Instantiate(disparoLaser, transform.position + new Vector3(0, 0, 0f), Quaternion.identity);
 
-            
-           
+
+
         }
-        else if(Input.GetKey(KeyCode.T))
-            {
+        else if (Input.GetKey(KeyCode.T))
+        {
             Instantiate(disparoLaser, transform.position + new Vector3(0, 0, 0f), Quaternion.identity);
             Instantiate(disparoLaser, transform.position + new Vector3(0.40f, 0, 0f), Quaternion.identity);
             Instantiate(disparoLaser, transform.position + new Vector3(-0.40f, 0, 0f), Quaternion.identity);
@@ -86,12 +92,45 @@ public class movimientoNave : MonoBehaviour
     }
 
 
+    void aumentarVelocidad()
+
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float Horizontal = Input.GetAxis("Horizontal") * velocidadHorizontal * Time.deltaTime;
+
+        print(Horizontal);
+        transform.Translate(Horizontal, 0, 0);
+
+        
+        if (powerUpvelocidad == true)
+        {
+
+            transform.Translate(Vector3.right * velocidadHorizontal * 10.0f * horizontal * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(Vector3.right * velocidadHorizontal * horizontal * Time.deltaTime);
+        }
+            
 
 
+    }
+
+    public void Power()
+    {
+        powerUpvelocidad = true;
+        StartCoroutine(powerDown());
+    }
+
+
+
+    IEnumerator powerDown()
+    {
+        yield return new WaitForSeconds(5.0f);
+        powerUpvelocidad = false;
+    }
 }
 
-    
-        
 
 
 

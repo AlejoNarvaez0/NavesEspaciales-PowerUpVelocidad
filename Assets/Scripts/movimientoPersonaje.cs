@@ -24,9 +24,7 @@ public class movimientoPersonaje: MonoBehaviour
 	{
 		aumentarVelocidad();
 
-		float Horizontal = Input.GetAxis("Horizontal") * velocidad * Time.deltaTime;
-		print(Horizontal);
-		transform.Translate(Horizontal, 0, 0);
+		
 		
 	}
 
@@ -35,9 +33,11 @@ public class movimientoPersonaje: MonoBehaviour
 	
 
 	void aumentarVelocidad()
-	{
-
-		float horizontal = Input.GetAxis("Horizontal");
+	{   float horizontal = Input.GetAxis("Horizontal");
+		float Horizontal = Input.GetAxis("Horizontal") * velocidad * Time.deltaTime;
+		print(Horizontal);
+		transform.Translate(Horizontal, 0, 0);
+		
 
 		if (powerUpvelocidad == true)
 		{
